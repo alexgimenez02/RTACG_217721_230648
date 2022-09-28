@@ -15,6 +15,7 @@
 #include "cameras/perspective.h"
 
 #include "shaders/intersectionshader.h"
+#include "shaders/depthintersectionshader.h"
 #include "shaders/depthshader.h"
 
 
@@ -161,7 +162,7 @@ int main()
     Vector3D bgColor(0.0, 0.0, 0.0); // Background color (for rays which do not intersect anything)
     Vector3D intersectionColor(1,0,0);
     
-    Shader *shader = new IntersectionShader (intersectionColor, bgColor);
+    Shader *shader = new DepthIntersectionShader (intersectionColor, bgColor);
   
 
     // Build the scene---------------------------------------------------------

@@ -4,6 +4,7 @@
 #include "../core/utils.h"
 
 class DepthIntersectionShader : public Shader {
+public:
 	DepthIntersectionShader();
     DepthIntersectionShader(Vector3D hitColor, Vector3D bgColor_);
 
