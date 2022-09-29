@@ -33,13 +33,14 @@ bool Utils::hasIntersection(const Ray& cameraRay, const vector<Shape*>& objectsL
 bool Utils::getClosestIntersection(const Ray& cameraRay, const vector<Shape*>& objectsList, Intersection& its) //or Closest Hit Ray
 {
     // Write your code bellow
+    bool result = false;
     for (size_t i = 0; i < objectsList.size(); i++) {
         const Shape* obj = objectsList.at(i);
         if (obj->rayIntersect(cameraRay, its)) {
-            return true;
+            result = true;
         }
     }
-    return false;
+    return result;
 }
 
 double interpolate(double val, double y0, double x0, double y1, double x1 )

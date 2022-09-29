@@ -11,7 +11,12 @@ DepthIntersectionShader::DepthIntersectionShader(Vector3D hitColor, Vector3D bgC
 
 Vector3D DepthIntersectionShader::colorFormula(double hitD, double maxD) const
 {
-    return Vector3D(0, 0, max((int)(1 - hitD/maxD), 0));
+    double c1 = 1.0 - (hitD / maxD);
+    Vector3D RGBColor = Vector3D(0, 0, 0);
+    if (c1 > 0) {
+        RGBColor.z = c1;
+    }
+    return RGBColor;
 }
 
 Vector3D DepthIntersectionShader::computeColor(const Ray& r, const vector<Shape*>& objList, const vector<PointLightSource>& lsList) const
@@ -19,7 +24,7 @@ Vector3D DepthIntersectionShader::computeColor(const Ray& r, const vector<Shape*
 
     Intersection* its = new Intersection();
     if (Utils::getClosestIntersection(r, objList, *its))
-        return colorFormula(dot(its->itsPoint, r.o), 666.0);
+        return colorFormula(r.maxT, 6.66);
     else
         return bgColor;
 }
