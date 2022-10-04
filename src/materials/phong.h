@@ -5,7 +5,7 @@ class Phong : public Material
 {
     //Atributes
     double kd, ks; //Diffuse and specular respectivelly
-    double n; //Shininess
+    double ns; //Shininess
 
     //Methods
     Phong(double kd, double ks, double n);
@@ -17,5 +17,4 @@ class Phong : public Material
     double getIndexOfRefraction();
 
 };
-
 #endif //!PHONG_H
