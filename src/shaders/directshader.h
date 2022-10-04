@@ -5,6 +5,7 @@
 #include "../core/utils.h"
 class DirectShader : public Shader
 {
+public:
     Vector3D hitColor;
 
     DirectShader();
@@ -12,7 +13,7 @@ class DirectShader : public Shader
 
     Vector3D computeColor(const Ray& r,
         const vector<Shape*>& objList,
-        const vector<PointLightSource>& lsList) const = 0;
+        const vector<PointLightSource>& lsList) const;
 
     Vector3D bgColor;
 };

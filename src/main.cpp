@@ -18,8 +18,10 @@
 #include "shaders/depthintersectionshader.h"
 #include "shaders/depthshader.h"
 #include "shaders/normalshader.h"
+#include "shaders/directshader.h"
 
-
+#include "materials/phong.h"
+#include "materials/material.h"
 
 
 
@@ -43,7 +45,9 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     /* ************************** */
     // (...)
     //  EXAMPLE:  Material *green_50 = new Phong (Vector3D(0.2, 0.7, 0.3), Vector3D(0.2, 0.6, 0.2), 50);
-
+    Material* phong1 = new Phong(Vector3D(6, 6, 6), Vector3D(0.6, 0.6, 0.6), 50);
+    Material* phong2 = new Phong(Vector3D(6, 6, 6), Vector3D(0.6, 0.6, 0.6), 20);
+    Material* phong3 = new Phong(Vector3D(6, 6, 6), Vector3D(0.6, 0.6, 0.6), 65);
 
     /* ******* */
     /* Objects */
@@ -55,17 +59,17 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     // Define and place a sphere
     Matrix4x4 sphereTransform1;
     sphereTransform1 = sphereTransform1.translate(Vector3D(-1.0, -0.5, 2 * sqrt(2.0)));
-    Shape* s1 = new Sphere(0.25, sphereTransform1, NULL);
+    Shape* s1 = new Sphere(0.25, sphereTransform1, phong1);
 
     // Define and place a sphere
     Matrix4x4 sphereTransform2;
     sphereTransform2 = sphereTransform2.translate(Vector3D(1.0, 0.0, 6));
-    Shape* s2 = new Sphere(1, sphereTransform2, NULL);
+    Shape* s2 = new Sphere(1, sphereTransform2, phong2);
 
     // Define and place a sphere
     Matrix4x4 sphereTransform3;
     sphereTransform3 = sphereTransform3.translate(Vector3D(0.3, -0.75, 3.5));
-    Shape* s3 = new Sphere(0.25, sphereTransform3, NULL);
+    Shape* s3 = new Sphere(0.25, sphereTransform3, phong3);
 
     // Store the objects in the object list
     objectsList->push_back(s1);
@@ -78,11 +82,15 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     /* ****** */
     //
     // ADD YOUR LIGHT SOURCES HERE
-    // (...)
-    //
+    PointLightSource ls1 = PointLightSource(Vector3D(5, 3, 1), Vector3D(6, 4, 2));
+    PointLightSource ls2 = PointLightSource(Vector3D(1, 3, 5), Vector3D(2, 4, 6));
+    PointLightSource ls3 = PointLightSource(Vector3D(2, 4, 6), Vector3D(8, 5, 1));
+
+
     // DO NOT FORGET TO STORE THE LIGHT SOURCES IN THE "lightSourceList"
-    // (...)
-    //
+    lightSourceList->push_back(ls1);
+    lightSourceList->push_back(ls2);
+    lightSourceList->push_back(ls3);
     
 }
 
@@ -163,7 +171,7 @@ int main()
     Vector3D bgColor(0.0, 0.0, 0.0); // Background color (for rays which do not intersect anything)
     Vector3D intersectionColor(1,0,0);
     
-    Shader *shader = new NormalShader (intersectionColor, bgColor);
+    Shader *shader = new DirectShader (intersectionColor, bgColor);
   
 
     // Build the scene---------------------------------------------------------
