@@ -158,8 +158,11 @@
     <ClCompile Include="..\..\src\lightsources\pointlightsource.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\materials\material.cpp" />
+    <ClCompile Include="..\..\src\materials\phong.cpp" />
     <ClCompile Include="..\..\src\shaders\depthintersectionshader.cpp" />
+    <ClCompile Include="..\..\src\shaders\directshader.cpp" />
     <ClCompile Include="..\..\src\shaders\intersectionshader.cpp" />
+    <ClCompile Include="..\..\src\shaders\normalshader.cpp" />
     <ClCompile Include="..\..\src\shaders\shader.cpp" />
     <ClCompile Include="..\..\src\shapes\infiniteplan.cpp" />
     <ClCompile Include="..\..\src\shapes\shape.cpp" />
@@ -180,8 +183,11 @@
     <ClInclude Include="..\..\src\core\vector3d.h" />
     <ClInclude Include="..\..\src\lightsources\pointlightsource.h" />
     <ClInclude Include="..\..\src\materials\material.h" />
+    <ClInclude Include="..\..\src\materials\phong.h" />
     <ClInclude Include="..\..\src\shaders\depthintersectionshader.h" />
+    <ClInclude Include="..\..\src\shaders\directshader.h" />
     <ClInclude Include="..\..\src\shaders\intersectionshader.h" />
+    <ClInclude Include="..\..\src\shaders\normalshader.h" />
     <ClInclude Include="..\..\src\shaders\shader.h" />
     <ClInclude Include="..\..\src\shapes\infiniteplan.h" />
     <ClInclude Include="..\..\src\shapes\shape.h" />
