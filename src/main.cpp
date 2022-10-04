@@ -44,10 +44,10 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     /* DEFINE YOUR MATERIALS HERE */
     /* ************************** */
     // (...)
-    //  EXAMPLE:  Material *green_50 = new Phong (Vector3D(0.2, 0.7, 0.3), Vector3D(0.2, 0.6, 0.2), 50);
-    Material* phong1 = new Phong(Vector3D(6, 6, 6), Vector3D(0.6, 0.6, 0.6), 50);
-    Material* phong2 = new Phong(Vector3D(6, 6, 6), Vector3D(0.6, 0.6, 0.6), 20);
-    Material* phong3 = new Phong(Vector3D(6, 6, 6), Vector3D(0.6, 0.6, 0.6), 65);
+    Material *green_50 = new Phong (Vector3D(0.2, 0.7, 0.3), Vector3D(0.2, 0.6, 0.2), 90);
+    Material* phong1 = new Phong(Vector3D(0.3, 0.1, 0.5), Vector3D(0.6, 0.6, 0.6), 50);
+    Material* phong2 = new Phong(Vector3D(0.6, 0.6, 0.6), Vector3D(0.2, 0.1, 0.9), 20);
+    Material* phong3 = new Phong(Vector3D(0.16, 0.61, 0.66), Vector3D(0.62, 0.12, 0.32), 65);
 
     /* ******* */
     /* Objects */
@@ -59,17 +59,17 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     // Define and place a sphere
     Matrix4x4 sphereTransform1;
     sphereTransform1 = sphereTransform1.translate(Vector3D(-1.0, -0.5, 2 * sqrt(2.0)));
-    Shape* s1 = new Sphere(0.25, sphereTransform1, phong1);
+    Shape* s1 = new Sphere(0.25, sphereTransform1, green_50);
 
     // Define and place a sphere
     Matrix4x4 sphereTransform2;
     sphereTransform2 = sphereTransform2.translate(Vector3D(1.0, 0.0, 6));
-    Shape* s2 = new Sphere(1, sphereTransform2, phong2);
+    Shape* s2 = new Sphere(1, sphereTransform2, green_50);
 
     // Define and place a sphere
     Matrix4x4 sphereTransform3;
     sphereTransform3 = sphereTransform3.translate(Vector3D(0.3, -0.75, 3.5));
-    Shape* s3 = new Sphere(0.25, sphereTransform3, phong3);
+    Shape* s3 = new Sphere(0.25, sphereTransform3, green_50);
 
     // Store the objects in the object list
     objectsList->push_back(s1);
@@ -82,15 +82,15 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     /* ****** */
     //
     // ADD YOUR LIGHT SOURCES HERE
-    PointLightSource ls1 = PointLightSource(Vector3D(5, 3, 1), Vector3D(6, 4, 2));
-    PointLightSource ls2 = PointLightSource(Vector3D(1, 3, 5), Vector3D(2, 4, 6));
-    PointLightSource ls3 = PointLightSource(Vector3D(2, 4, 6), Vector3D(8, 5, 1));
+    PointLightSource ls1 = PointLightSource(Vector3D(-1.0, -1.0, -1.0), Vector3D(1, 1, 1));
+    //PointLightSource ls2 = PointLightSource(Vector3D(2.1, 2.3, 2.5), Vector3D(0.2, 0.4, 0.6));
+    //PointLightSource ls3 = PointLightSource(Vector3D(2.2, 2.4, 2.6), Vector3D(0.8, 0.5, 0.1));
 
-
+    lightSourceList = new vector<PointLightSource>;
     // DO NOT FORGET TO STORE THE LIGHT SOURCES IN THE "lightSourceList"
     lightSourceList->push_back(ls1);
-    lightSourceList->push_back(ls2);
-    lightSourceList->push_back(ls3);
+    //lightSourceList->push_back(ls2);
+    //lightSourceList->push_back(ls3);
     
 }
 
