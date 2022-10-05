@@ -1,6 +1,6 @@
 #include "phong.h"
 
-Phong::Phong(Vector3D kd, Vector3D ks, double n)
+Phong::Phong(Vector3D kd, Vector3D ks, double ns)
 {
 	this->kd = kd;
 	this->ks = ks;
