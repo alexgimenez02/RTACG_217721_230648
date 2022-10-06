@@ -82,7 +82,7 @@ void buildSceneSphere(Camera*& cam, Film*& film,
     /* ****** */
     //
     // ADD YOUR LIGHT SOURCES HERE
-    PointLightSource ls1 = PointLightSource(Vector3D(-1.0, -1.0, -1.0), Vector3D(15, 15, 15));
+    PointLightSource ls1 = PointLightSource(Vector3D(-1.5, -1.0, -1.0), Vector3D(15, 15, 15));
     PointLightSource ls2 = PointLightSource(Vector3D(-1.0, 2.0, 2.0), Vector3D(15, 15, 15));
     PointLightSource ls3 = PointLightSource(Vector3D(2.0, -1.0, -1.0), Vector3D(15, 15, 15));
 
