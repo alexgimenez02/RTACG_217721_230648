@@ -6,10 +6,11 @@ class Transmissive :
     public Material
 {
 public:
+    double indRef;
+    Vector3D wo;
 
-    Transmissive();
+    Transmissive(double indRef, Vector3D wo);
 
-    Vector3D getReflectance();
     bool hasSpecular();
     bool hasTransmission();
     bool hasDiffuseOrGlossy();

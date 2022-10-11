@@ -6,10 +6,10 @@ class Mirror :
 {
 public:
  
+    Vector3D wo;
 
     Mirror(Vector3D interrogante);
 
-    Vector3D getReflectance();
     bool hasSpecular();
     bool hasTransmission() ;
     bool hasDiffuseOrGlossy() ;

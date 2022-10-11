@@ -1,12 +1,9 @@
 #include "transmissive.h"
 
-Transmissive::Transmissive()
+Transmissive::Transmissive(double indRef, Vector3D wo)
 {
-}
-
-Vector3D Transmissive::getReflectance()
-{
-	return Vector3D();
+	this->indRef = indRef;
+	this->wo = wo;
 }
 
 bool Transmissive::hasSpecular()
@@ -26,5 +23,5 @@ bool Transmissive::hasDiffuseOrGlossy()
 
 double Transmissive::getIndexOfRefraction()
 {
-	return 0.0;
+	return indRef;
 }

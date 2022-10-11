@@ -1,12 +1,7 @@
 #include "mirror.h"
 
-Mirror::Mirror(Vector3D interrogante){
-
-}
-
-Vector3D Mirror::getReflectance()
-{
-	return Vector3D();
+Mirror::Mirror(Vector3D wo){
+	this->wo = wo;
 }
 
 bool Mirror::hasSpecular()
@@ -21,7 +16,7 @@ bool Mirror::hasTransmission()
 
 bool Mirror::hasDiffuseOrGlossy()
 {
-	return true;
+	return false;
 }
 
 double Mirror::getIndexOfRefraction()

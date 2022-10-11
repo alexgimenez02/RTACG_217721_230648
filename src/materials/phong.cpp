@@ -31,7 +31,7 @@ bool Phong::hasTransmission() const
 
 bool Phong::hasDiffuseOrGlossy() const
 {
-	return false;
+	return true;
 }
 
 double Phong::getIndexOfRefraction() const
