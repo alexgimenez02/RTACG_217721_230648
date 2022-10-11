@@ -149,6 +149,7 @@
     <ClCompile Include="..\..\src\core\bitmap.cpp" />
     <ClCompile Include="..\..\src\core\eqsolver.cpp" />
     <ClCompile Include="..\..\src\core\film.cpp" />
+    <ClCompile Include="..\..\src\core\hemisphericalsampler.cpp" />
     <ClCompile Include="..\..\src\core\intersection.cpp" />
     <ClCompile Include="..\..\src\core\matrix4x4.cpp" />
     <ClCompile Include="..\..\src\core\ray.cpp" />
@@ -158,7 +159,9 @@
     <ClCompile Include="..\..\src\lightsources\pointlightsource.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\materials\material.cpp" />
+    <ClCompile Include="..\..\src\materials\mirror.cpp" />
     <ClCompile Include="..\..\src\materials\phong.cpp" />
+    <ClCompile Include="..\..\src\materials\transmissive.cpp" />
     <ClCompile Include="..\..\src\shaders\depthintersectionshader.cpp" />
     <ClCompile Include="..\..\src\shaders\directshader.cpp" />
     <ClCompile Include="..\..\src\shaders\intersectionshader.cpp" />
@@ -175,6 +178,7 @@
     <ClInclude Include="..\..\src\core\bitmap.h" />
     <ClInclude Include="..\..\src\core\eqsolver.h" />
     <ClInclude Include="..\..\src\core\film.h" />
+    <ClInclude Include="..\..\src\core\hemisphericalsampler.h" />
     <ClInclude Include="..\..\src\core\intersection.h" />
     <ClInclude Include="..\..\src\core\matrix4x4.h" />
     <ClInclude Include="..\..\src\core\ray.h" />
@@ -183,7 +187,9 @@
     <ClInclude Include="..\..\src\core\vector3d.h" />
     <ClInclude Include="..\..\src\lightsources\pointlightsource.h" />
     <ClInclude Include="..\..\src\materials\material.h" />
+    <ClInclude Include="..\..\src\materials\mirror.h" />
     <ClInclude Include="..\..\src\materials\phong.h" />
+    <ClInclude Include="..\..\src\materials\transmissive.h" />
     <ClInclude Include="..\..\src\shaders\depthintersectionshader.h" />
     <ClInclude Include="..\..\src\shaders\directshader.h" />
     <ClInclude Include="..\..\src\shaders\intersectionshader.h" />
