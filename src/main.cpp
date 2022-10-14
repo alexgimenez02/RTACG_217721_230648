@@ -19,6 +19,7 @@
 #include "shaders/depthshader.h"
 #include "shaders/normalshader.h"
 #include "shaders/directshader.h"
+#include "shaders/globalshader.h"
 
 #include "materials/phong.h"
 #include "materials/material.h"
@@ -246,11 +247,10 @@ int main()
     //Shader* shader = new IntersectionShader(intersectionColor, bgColor); //task 2
     //Shader* shader = new DepthIntersectionShader(intersectionColor, bgColor); //task 3
     //Shader* shader = new NormalShader(intersectionColor, bgColor); //task 4
-    Shader *shader = new DirectShader (intersectionColor, bgColor); //task 5
+    Shader *shader = new GlobalShader (bgColor); //task 5
   
 
     // Build the scene---------------------------------------------------------
-    // 
     // Declare pointers to all the variables which describe the scene
     Camera* cam;
     vector<Shape*>* objectsList;

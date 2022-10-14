@@ -37,3 +37,8 @@ double Phong::getIndexOfRefraction() const
 {
 	return -1.0;
 }
+
+Vector3D Phong::getDiffuseCoefficient() const
+{
+	return Vector3D();
+}

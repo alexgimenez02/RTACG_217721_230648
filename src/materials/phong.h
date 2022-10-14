@@ -17,6 +17,7 @@ public:
     bool hasTransmission() const override;
     bool hasDiffuseOrGlossy() const override;
     double getIndexOfRefraction() const override;
+    Vector3D getDiffuseCoefficient() const;
 
 };
 #endif //!PHONG_H
