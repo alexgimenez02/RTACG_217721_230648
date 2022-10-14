@@ -14,9 +14,8 @@ Vector3D Phong::getReflectance(const Vector3D& n, const Vector3D& wo, const Vect
 	calc_n.x *= (2 * (dot(n, wi) < 0 ? 0 : dot(n, wi)));
 	calc_n.y *= (2 * (dot(n, wi) < 0 ? 0 : dot(n, wi)));
 	calc_n.z *= (2 * (dot(n, wi) < 0 ? 0 : dot(n, wi)));
-	Vector3D wr =  calc_n - wi;
-	
-	return r + (ks * pow((dot(wo,wr) < 0 ? 0 : dot(wo, wr)),ns));
+	Vector3D wr = calc_n - wi;
+	return r + (ks * pow((dot(wo, wr) < 0 ? 0 : dot(wo, wr)), ns));
 }
 
 bool Phong::hasSpecular() const

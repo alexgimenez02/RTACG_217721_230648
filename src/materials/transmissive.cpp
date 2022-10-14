@@ -1,9 +1,8 @@
 #include "transmissive.h"
 
-Transmissive::Transmissive(double indRef, Vector3D wo)
+Transmissive::Transmissive(double indRef)
 {
 	this->indRef = indRef;
-	this->wo = wo;
 }
 
 bool Transmissive::hasSpecular()

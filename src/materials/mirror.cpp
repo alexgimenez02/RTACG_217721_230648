@@ -1,8 +1,6 @@
 #include "mirror.h"
 
-Mirror::Mirror(Vector3D wo){
-	this->wo = wo;
-}
+Mirror::Mirror(){}
 
 bool Mirror::hasSpecular()
 {

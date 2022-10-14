@@ -7,9 +7,8 @@ class Transmissive :
 {
 public:
     double indRef;
-    Vector3D wo;
 
-    Transmissive(double indRef, Vector3D wo);
+    Transmissive(double indRef);
 
     bool hasSpecular();
     bool hasTransmission();
