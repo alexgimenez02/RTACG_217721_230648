@@ -3,6 +3,9 @@
 
 #include "vector3d.h"
 //#include <iostream>
+#ifdef linux
+#include <cstring>
+#endif
 
 /**
  * @brief The bmp24_file_header struct

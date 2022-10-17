@@ -3,7 +3,9 @@
 
 #include <string>
 #include <sstream>
-
+#ifdef linux
+#include <cmath>
+#endif
 #include "vector3d.h"
 
 #define Epsilon (double)1e-4

@@ -2,6 +2,9 @@
 #define VECTOR3D_H
 
 #include <ostream>
+#ifdef linux
+#include <cmath>
+#endif
 
 struct Vector3D
 {

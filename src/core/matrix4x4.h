@@ -4,6 +4,9 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#ifdef linux
+#include <cstring>
+#endif
 
 #include "vector3d.h"
 #include "ray.h"
