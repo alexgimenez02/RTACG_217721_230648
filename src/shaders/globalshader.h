@@ -10,7 +10,7 @@ class GlobalShader : public Shader
 public: 
 
     GlobalShader();
-    GlobalShader(Vector3D bgColor_);
+    GlobalShader(Vector3D at, Vector3D bgColor_);
 
       Vector3D computeColor(const Ray& r,
         const std::vector<Shape*>& objList,
@@ -18,6 +18,7 @@ public:
 
     Vector3D bgColor;
     Vector3D at;
+
 
 };
 

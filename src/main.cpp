@@ -247,7 +247,7 @@ int main()
     //Shader* shader = new IntersectionShader(intersectionColor, bgColor); //task 2
     //Shader* shader = new DepthIntersectionShader(intersectionColor, bgColor); //task 3
     //Shader* shader = new NormalShader(intersectionColor, bgColor); //task 4
-    Shader *shader = new GlobalShader (bgColor); //task 5
+    Shader *shader = new GlobalShader (intersectionColor, bgColor); //task 5
   
 
     // Build the scene---------------------------------------------------------
