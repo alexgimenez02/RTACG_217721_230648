@@ -64,7 +64,7 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
             if (insRot >= 0){
                 //double outRot = -sqrt(insRot) + etaT * wo_n_prod;
                 //Vector3D wt = its.normal * outRot - wo * etaT;
-                double t = -sqrt(insRot) + etaT * dot((its.itsPoint - r.o).normalized(), its.normal);
+                double t = sqrt(insRot) - etaT * dot(wo, its.normal);
                 Vector3D wt = its.normal * t - wo * etaT;
                 Ray refractedRay = Ray(its.itsPoint, wt.normalized(), r.depth + 1);
                 return computeColor(refractedRay, objList, lsList);
