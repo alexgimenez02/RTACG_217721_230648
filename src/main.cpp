@@ -22,6 +22,8 @@
 #include "shaders/globalshader.h"
 
 #include "materials/phong.h"
+#include "materials/mirror.h"
+#include "materials/transmissive.h"
 #include "materials/material.h"
 
 
@@ -112,8 +114,8 @@ void buildSceneCornellBox(Camera*& cam, Film*& film,
     Material* greenDiffuse = new Phong(Vector3D(0.2, 0.7, 0.3), Vector3D(0, 0, 0), 100);
     Material* greyDiffuse = new Phong(Vector3D(0.8, 0.8, 0.8), Vector3D(0, 0, 0), 100);
     Material* blueDiffuse = new Phong(Vector3D(0.3, 0.2, 0.7), Vector3D(0, 0, 0), 100);
-    Material* transmissive = new Phong(Vector3D(1, 1, 0.2), Vector3D(1, 1, 0.2), 20);
-    Material* mirror = new Phong(Vector3D(0.0, 0.9, 0.9),Vector3D(0.1, 0.9, 0.9), 50);
+    Material* transmissive = new Transmissive(1.1);
+    Material* mirror = new Mirror();
     Material* red_100 = new Phong(Vector3D(0.7, 0.2, 0.3), Vector3D(0.7, 0.7, 0.2), 100);
 
     /* ******* */
@@ -242,12 +244,13 @@ int main()
 
     // Declare the shader
     Vector3D bgColor(0.0, 0.0, 0.0); // Background color (for rays which do not intersect anything)
-    Vector3D intersectionColor(1,0,0);
+    Vector3D intersectionColor(0.15, 0.15, 0.15);
     
     //Shader* shader = new IntersectionShader(intersectionColor, bgColor); //task 2
     //Shader* shader = new DepthIntersectionShader(intersectionColor, bgColor); //task 3
     //Shader* shader = new NormalShader(intersectionColor, bgColor); //task 4
-    Shader *shader = new GlobalShader (intersectionColor, bgColor); //task 5
+    //Shader *shader = new DirectShader (intersectionColor, bgColor); //task 5 & task 1 asg 2
+    Shader *shader = new GlobalShader (intersectionColor, bgColor); //task 2 asg2
   
 
     // Build the scene---------------------------------------------------------
