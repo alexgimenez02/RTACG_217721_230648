@@ -246,7 +246,7 @@ int main()
 
     // Declare the shader
     Vector3D bgColor(0.0, 0.0, 0.0); // Background color (for rays which do not intersect anything)
-    Vector3D intersectionColor(0.5, 0.5, 0.5);
+    Vector3D intersectionColor(0.05, 0.05, 0.05);
     
     //Shader* shader = new IntersectionShader(intersectionColor, bgColor); //task 2
     //Shader* shader = new DepthIntersectionShader(intersectionColor, bgColor); //task 3
