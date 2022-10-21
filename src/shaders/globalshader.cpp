@@ -11,10 +11,34 @@ GlobalShader::GlobalShader(Vector3D at, Vector3D bgColor_){
 Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList, const vector<PointLightSource>& lsList) const{
     Intersection its = Intersection();
     if (Utils::getClosestIntersection(r, objList, its)) {
-        
+        HemisphericalSampler hs = HemisphericalSampler();
         if(its.shape->getMaterial().hasDiffuseOrGlossy()){
             Vector3D Lind = Vector3D(0);
-            Lind = this->at * its.shape->getMaterial().getDiffuseCoefficient();
+            /*if(r.depth == 0){
+
+                Vector3D sum = Vector3D(0);
+                for (int k = 0; k < 10; ++k) {
+                    Vector3D wj = hs.getSample(its.normal).normalized();
+
+                    for (int i = 0; i < lsList.size(); ++i) {
+                        Vector3D Li = lsList.at(i).getIntensity(wj);
+                        Vector3D rp = its.shape->getMaterial().getReflectance(its.normal, wj, (r.o - its.itsPoint).normalized());
+
+                        sum += Li*rp;
+                    }
+                }
+
+                Lind = sum * (1/(2*M_PI*lsList.size()));*/
+           // }else if (r.depth > 10){
+                Lind = this->at * its.shape->getMaterial().getDiffuseCoefficient();
+            /*}else{
+                Vector3D wo = r.o - its.itsPoint;
+                wo = wo.normalized();
+                Vector3D wr = its.normal * 2 * dot(wo, its.normal) - wo;
+                Vector3D wn = its.normal;
+            }*/
+
+
 
             Vector3D Lo = Vector3D(0, 0, 0);
             for (int i = 0; i < lsList.size(); i++) {

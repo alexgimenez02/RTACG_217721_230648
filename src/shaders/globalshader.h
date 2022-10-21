@@ -3,6 +3,7 @@
 
 #include "shader.h"
 #include "../core/utils.h"
+#include "../core/hemisphericalsampler.h"
 
 class GlobalShader : public Shader
 {
