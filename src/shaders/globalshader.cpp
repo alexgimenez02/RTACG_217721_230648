@@ -14,10 +14,10 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
         HemisphericalSampler hs = HemisphericalSampler();
         if(its.shape->getMaterial().hasDiffuseOrGlossy()){
             Vector3D Lind = Vector3D(0);
-            /*if(r.depth == 0){
+            if(r.depth == 0){
 
                 Vector3D sum = Vector3D(0);
-                for (int k = 0; k < 10; ++k) {
+                for (int k = 0; k < 2; ++k) {
                     Vector3D wj = hs.getSample(its.normal).normalized();
 
                     for (int i = 0; i < lsList.size(); ++i) {
@@ -28,10 +28,10 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
                     }
                 }
 
-                Lind = sum * (1/(2*M_PI*lsList.size()));*/
-           // }else if (r.depth > 10){
+                Lind = sum * (1/(2*M_PI*2z));
+            }else{
                 Lind = this->at * its.shape->getMaterial().getDiffuseCoefficient();
-            /*}else{
+            }/*else{
                 Vector3D wo = r.o - its.itsPoint;
                 wo = wo.normalized();
                 Vector3D wr = its.normal * 2 * dot(wo, its.normal) - wo;
@@ -56,12 +56,6 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
             }
             return Lo + Lind;
         }else if(its.shape->getMaterial().hasSpecular()){
-            // PSEUDO-CODE
-            // Vector3D wr = computeReflectionDirection(ray.d,its.normal)
-            /* Ray reflectionRay = Ray(its.point,wr,ray.depth+1)
-                * color = ComputeColor(reflectionRay,objLit,lsList)
-                * return color;
-                */
             Vector3D wo = r.o - its.itsPoint;
             wo = wo.normalized();
             Vector3D wr = its.normal * 2 * dot(wo, its.normal) - wo;
@@ -70,32 +64,26 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
 
                 
         }else if(its.shape->getMaterial().hasTransmission()){
-            /* PSEUDO-CODE
-                * if !isTotalInternalReflection(...){
-                *     wt = computeTransmissionDirection(...)
-                *     refracRay = Ray(its.point,wt,ray.depth+1)
-                *     color = ComputeColor(refracRay,objList,lsList)
-                * } else{
-                *     color = Specular reflection
-                * }
-                * return color;
-                */
-            Vector3D wo = r.o - its.itsPoint;
-            wo = wo.normalized();
+            Vector3D wo = -r.d;
+            //wo = wo.normalized();
             double etaT = its.shape->getMaterial().getIndexOfRefraction();
-            double wo_n_prod = dot(wo, its.normal);
+            Vector3D n = its.normal.normalized();
+            double wo_n_prod = dot(wo, n);
+            if(wo_n_prod < 0){
+                n = -n;
+                wo_n_prod = dot(wo,n);
+                etaT = 1/etaT;
+            }
             double insRot = 1 - (pow(etaT, 2) * (1 - pow(wo_n_prod, 2)));
             if (insRot >= 0){
-                //double outRot = -sqrt(insRot) + etaT * wo_n_prod;
-                //Vector3D wt = its.normal * outRot - wo * etaT;
-                double t = sqrt(insRot) - etaT * dot(wo, its.normal);
-                Vector3D wt = its.normal * t - wo * etaT;
+                double t = -sqrt(insRot) + etaT * dot(wo, n);
+                Vector3D wt = n * t - wo * etaT;
                 Ray refractedRay = Ray(its.itsPoint, wt.normalized(), r.depth + 1);
                 return computeColor(refractedRay, objList, lsList);
                 //return Vector3D(0);
             }
             else {
-                Vector3D wr = its.normal * 2 * wo_n_prod - wo;
+                Vector3D wr = n * 2 * wo_n_prod - wo;
                 Ray reflectionRay = Ray(its.itsPoint, wr.normalized(), r.depth + 1);
                 return computeColor(reflectionRay, objList, lsList);
             }
