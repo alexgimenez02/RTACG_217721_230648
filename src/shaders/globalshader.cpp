@@ -1,4 +1,5 @@
 #include "globalshader.h"
+#include <math.h>
 
 GlobalShader::GlobalShader(){
 }
@@ -28,7 +29,7 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
                     }
                 }
 
-                Lind = sum * (1/(2*M_PI*2z));
+                Lind = sum * (1/(2*M_PI*2));
             }else{
                 Lind = this->at * its.shape->getMaterial().getDiffuseCoefficient();
             }/*else{
