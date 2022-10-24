@@ -1,8 +1,8 @@
 #include "globalshader.h"
 #include <math.h>
 
-#define N_DIRECTIONS 10
-#define N_BOUNCES 5
+#define N_DIRECTIONS 100
+#define N_BOUNCES 3
 
 GlobalShader::GlobalShader(){
 }
@@ -17,43 +17,37 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
     if (Utils::getClosestIntersection(r, objList, its)) {
         HemisphericalSampler hs = HemisphericalSampler();
         if(its.shape->getMaterial().hasDiffuseOrGlossy()){
-            Vector3D Lind = Vector3D(0);
+            Vector3D Lind = Vector3D(0.0);
             if(r.depth == 0){
           
                 for (size_t i = 0; i < N_DIRECTIONS; i++)
                 {
+                    //Random sample
                     Vector3D wj = hs.getSample(its.normal).normalized();
                     Ray r_bounced = Ray(its.itsPoint, wj, r.depth + 1);
 
-
-                    if (Utils::hasIntersection(r_bounced, objList)) {
-                        Vector3D wo = (r.o - its.itsPoint).normalized();
-                        Vector3D li = computeColor(r_bounced, objList, lsList);
-                        Vector3D rp = its.shape->getMaterial().getReflectance(its.normal, wo, wj);
-                        Lind += Utils::multiplyPerCanal(li, rp);
-                    }
+                    //get reflectance and intensity from the new ray
+                    Vector3D wo = -r.d;
+                    Vector3D li = computeColor(r_bounced, objList, lsList);
+                    Vector3D rp = its.shape->getMaterial().getReflectance(its.normal, wo, wj);
+                    Lind += li * rp;
+                    
 
                 }
-                Lind = Lind * (1 / (2 * M_PI * N_DIRECTIONS));
+                Lind = Lind * (1.0 / (2.0 * M_PI * N_DIRECTIONS));
                
-            }else{ //if (r.depth == N_BOUNCES) {
+            }else if (r.depth == N_BOUNCES) {
                 Lind = this->at * its.shape->getMaterial().getDiffuseCoefficient();
-            }/*else {
-                Vector3D wo = r.o - its.itsPoint;
-                wo = wo.normalized();
+            }else {
+                Vector3D wo = -r.d;
                 Vector3D wr = its.normal * 2 * dot(wo, its.normal) - wo;
                 Vector3D wn = its.normal;
                 Ray rayWr = Ray(its.itsPoint, wr, r.depth + 1);
                 Ray rayWn = Ray(its.itsPoint, wn, r.depth + 1);
-                Vector3D lo_Wr = Vector3D(0);
-                Vector3D lo_Wn = Vector3D(0);
-                if(Utils::hasIntersection(rayWr,objList))
-                    lo_Wr = computeColor(rayWr, objList, lsList);
-                if(Utils::hasIntersection(rayWn,objList))
-                    lo_Wn = computeColor(rayWn, objList, lsList);
-
-                Lind = (lo_Wr + lo_Wn) * (1 / 4 * M_PI);
-            }*/
+                Vector3D lo_Wr = computeColor(rayWr, objList, lsList);
+                Vector3D lo_Wn = computeColor(rayWn, objList, lsList);
+                Lind = (lo_Wr + lo_Wn) * (1.0 / 4.0 * M_PI);
+            }
 
 
 
@@ -73,8 +67,7 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
             }
             return Lo + Lind;
         }else if(its.shape->getMaterial().hasSpecular()){
-            Vector3D wo = r.o - its.itsPoint;
-            wo = wo.normalized();
+            Vector3D wo = -r.d;
             Vector3D wr = its.normal * 2 * dot(wo, its.normal) - wo;
             Ray reflectionRay = Ray(its.itsPoint, wr.normalized(), r.depth);
             return computeColor(reflectionRay, objList, lsList);
@@ -82,7 +75,6 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
                 
         }else if(its.shape->getMaterial().hasTransmission()){
             Vector3D wo = -r.d;
-            //wo = wo.normalized();
             double etaT = its.shape->getMaterial().getIndexOfRefraction();
             Vector3D n = its.normal.normalized();
             double wo_n_prod = dot(wo, n);
@@ -97,7 +89,6 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
                 Vector3D wt = n * t - wo * etaT;
                 Ray refractedRay = Ray(its.itsPoint, wt.normalized(), r.depth);
                 return computeColor(refractedRay, objList, lsList);
-                //return Vector3D(0);
             }
             else {
                 Vector3D wr = n * 2 * wo_n_prod - wo;
