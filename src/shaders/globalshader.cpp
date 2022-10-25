@@ -1,8 +1,8 @@
 #include "globalshader.h"
 #include <math.h>
 
-#define N_DIRECTIONS 100
-#define N_BOUNCES 3
+#define N_DIRECTIONS 200
+#define N_BOUNCES 5
 
 GlobalShader::GlobalShader(){
 }
@@ -15,13 +15,13 @@ GlobalShader::GlobalShader(Vector3D at, Vector3D bgColor_){
 Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList, const vector<PointLightSource>& lsList) const{
     Intersection its = Intersection();
     if (Utils::getClosestIntersection(r, objList, its)) {
-        HemisphericalSampler hs = HemisphericalSampler();
         if(its.shape->getMaterial().hasDiffuseOrGlossy()){
             Vector3D Lind = Vector3D(0.0);
             if(r.depth == 0){
           
                 for (size_t i = 0; i < N_DIRECTIONS; i++)
                 {
+                    HemisphericalSampler hs = HemisphericalSampler();
                     //Random sample
                     Vector3D wj = hs.getSample(its.normal).normalized();
                     Ray r_bounced = Ray(its.itsPoint, wj, r.depth + 1);
@@ -45,8 +45,11 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
                 Ray rayWr = Ray(its.itsPoint, wr, r.depth + 1);
                 Ray rayWn = Ray(its.itsPoint, wn, r.depth + 1);
                 Vector3D lo_Wr = computeColor(rayWr, objList, lsList);
+                Vector3D rp_Wr = its.shape->getMaterial().getReflectance(its.normal, wo, wr);
                 Vector3D lo_Wn = computeColor(rayWn, objList, lsList);
-                Lind = (lo_Wr + lo_Wn) * (1.0 / 4.0 * M_PI);
+                Vector3D rp_Wn = its.shape->getMaterial().getReflectance(its.normal, wo, wn);
+
+                Lind = ((lo_Wr * rp_Wr) + (lo_Wn * rp_Wn)) * (1.0 / 4.0 * M_PI);
             }
 
 
