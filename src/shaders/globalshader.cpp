@@ -2,7 +2,7 @@
 #include <math.h>
 
 #define N_DIRECTIONS 200
-#define N_BOUNCES 5
+#define N_BOUNCES 2
 
 GlobalShader::GlobalShader(){
 }
@@ -36,9 +36,11 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
                 }
                 Lind = Lind * (1.0 / (2.0 * M_PI * N_DIRECTIONS));
                
-            }else if (r.depth == N_BOUNCES) {
+            }
+            else if (r.depth == N_BOUNCES) {
                 Lind = this->at * its.shape->getMaterial().getDiffuseCoefficient();
-            }else {
+            }
+            else {
                 Vector3D wo = -r.d;
                 Vector3D wr = its.normal * 2 * dot(wo, its.normal) - wo;
                 Vector3D wn = its.normal;
@@ -69,14 +71,16 @@ Vector3D GlobalShader::computeColor(const Ray& r, const vector<Shape*>& objList,
                 }
             }
             return Lo + Lind;
-        }else if(its.shape->getMaterial().hasSpecular()){
+        }
+        else if(its.shape->getMaterial().hasSpecular()){
             Vector3D wo = -r.d;
             Vector3D wr = its.normal * 2 * dot(wo, its.normal) - wo;
             Ray reflectionRay = Ray(its.itsPoint, wr.normalized(), r.depth);
             return computeColor(reflectionRay, objList, lsList);
 
                 
-        }else if(its.shape->getMaterial().hasTransmission()){
+        }
+        else if(its.shape->getMaterial().hasTransmission()){
             Vector3D wo = -r.d;
             double etaT = its.shape->getMaterial().getIndexOfRefraction();
             Vector3D n = its.normal.normalized();
